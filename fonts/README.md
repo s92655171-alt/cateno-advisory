@@ -1,0 +1,1 @@
+Optional: place self-hosted woff2 files for Cormorant Garamond (500/600) and Inter (400/500) here and add @font-face rules to css/styles.css. Without them the site falls back to Georgia / system sans-serif. No external font requests are made.

@@ -1,0 +1,12 @@
+{
+  "T": {
+    "en": {},
+    "de": {}
+  },
+  "S": [],
+  "IND": {
+    "en": ["Automotive & Mobility", "Financial Services", "Manufacturing & Industrial", "Logistics & Supply Chain", "Technology & Software", "International Trade"],
+    "de": ["Automobil & Mobilität", "Finanzdienstleistungen", "Fertigung & Industrie", "Logistik & Lieferkette", "Technologie & Software", "Internationaler Handel"]
+  },
+  "CONFIG": {"email": "info@example.com"}
+}

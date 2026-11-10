@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 112" role="img" aria-labelledby="title desc">
+<title id="title">CATENO ADVISORY</title><desc id="desc">Geometric C symbol and CATENO ADVISORY wordmark</desc>
+<g fill="none" stroke="#F7FAFE" stroke-width="8" stroke-linecap="square" stroke-linejoin="miter">
+<path d="M78 14H35L12 37V75L35 98H78"/>
+<path d="M78 29H43L27 45V67L43 83H78" opacity=".78"/>
+</g>
+<g fill="#F7FAFE" font-family="Arial, Helvetica, sans-serif">
+<text x="116" y="54" font-size="43" font-weight="500" letter-spacing="13">CATENO</text>
+<text x="120" y="88" font-size="19" font-weight="400" letter-spacing="12">ADVISORY</text>
+</g></svg>
