@@ -1,5 +1,6 @@
-import "./admin.css";
 "use client";
+
+import "./admin.css";
 import { useEffect, useMemo, useState } from "react";
 type Obj = Record<string, any>;
 const starter: Obj={T:{en:{},de:{}},S:[],IND:{en:[],de:[]},CONFIG:{email:""}};
