@@ -1,5 +1,4 @@
 // Optional content overrides exported by the CATENO local content manager.
-// Defaults remain in i18n.js and data.js if content.json is unavailable.
 (async function(){
   const defaults = {
     en: {homeEyebrow:"INTERNATIONAL BUSINESS & TECHNOLOGY CONSULTING",homeTitle1:"Strategy. Technology.",homeTitle2:"Global Growth.",homeSub:"We help businesses navigate complexity, embrace technology and unlock new opportunities across international markets.",introHeading:"Your Trusted Partner for Sustainable Growth.",introCopy:"At CATENO ADVISORY, we combine strategic consulting with technological expertise to help organizations grow, innovate and thrive in an increasingly complex global landscape.",servicesHeading:"Comprehensive Expertise for a Complex World.",approachHeading:"From Strategy to Impact.",approachIntro:"A structured, collaborative journey from the first insight to meaningful, lasting implementation.",globalHeading:"Global Perspective. Local Expertise.",globalCopy:"We bring together strategic thinking and an understanding of different markets, industries and business cultures.",whyHeading:"Clarity for Complex Challenges."},
@@ -18,11 +17,12 @@
         }
       }
       if (content.IND) for (const language of ['en','de']) if (Array.isArray(content.IND[language])) IND[language] = content.IND[language];
-      if (content.CONFIG && content.CONFIG.email) CONFIG.email = content.CONFIG.email;
+      if (content.CONFIG && typeof content.CONFIG.email === 'string' && content.CONFIG.email.trim()) CONFIG.email = content.CONFIG.email.trim();
     }
   } catch (error) {
     console.info('CATENO: using built-in content (content.json not loaded).', error);
   }
+  if (!CONFIG.email || !CONFIG.email.trim()) CONFIG.email = "s92655171@gmail.com";
   const script = document.createElement('script');
   script.src = 'js/app.js';
   document.body.appendChild(script);
