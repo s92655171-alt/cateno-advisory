@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
+// Runtime bindings are read from the Cloudflare Worker environment.
 export const dynamic = "force-dynamic";
 
 async function authorize(req: NextRequest) {
