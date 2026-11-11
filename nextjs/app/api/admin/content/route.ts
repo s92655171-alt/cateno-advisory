@@ -16,7 +16,7 @@ async function authorize(req: NextRequest) {
     !allow.length ? "CATENO_ADMIN_EMAILS" : ""
   ].filter(Boolean);
   if (missing.length) return {error:`Server configuration is incomplete. Missing: ${missing.join(", ")}`,status:503 as const};
-  const token = req.headers.get("authorization")?.replace(/^Bearer\\s+/i,"");
+  const token = req.headers.get("authorization")?.replace(/^Bearer\s+/i,"");
   if (!token) return {error:"Authentication required.",status:401 as const};
   const check = await fetch(`${url}/auth/v1/user`, {headers:{apikey:anon,Authorization:`Bearer ${token}`},cache:"no-store"});
   if (!check.ok) return {error:"Session expired. Please sign in again.",status:401 as const};
