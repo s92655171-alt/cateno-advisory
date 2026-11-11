@@ -1,11 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getCloudflareContext } from "@opennextjs/cloudflare";
 export const dynamic = "force-dynamic";
 
 async function authorize(req: NextRequest) {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
-  const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
-  const service = process.env.SUPABASE_SERVICE_ROLE_KEY || "";
-  const allow = (process.env.CATENO_ADMIN_EMAILS || "").split(",").map(x=>x.trim().toLowerCase()).filter(Boolean);
+  const env = getCloudflareContext().env as unknown as Record<string, string | undefined>;
+  const url = env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || "";
+  const anon = env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
+  const service = env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || "";
+  const allow = (env.CATENO_ADMIN_EMAILS || process.env.CATENO_ADMIN_EMAILS || "").split(",").map(x=>x.trim().toLowerCase()).filter(Boolean);
   const missing = [
     !url ? "NEXT_PUBLIC_SUPABASE_URL" : "",
     !anon ? "NEXT_PUBLIC_SUPABASE_ANON_KEY" : "",
