@@ -6,7 +6,13 @@ async function authorize(req: NextRequest) {
   const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   const service = process.env.SUPABASE_SERVICE_ROLE_KEY;
   const allow = (process.env.CATENO_ADMIN_EMAILS || "").split(",").map(x=>x.trim().toLowerCase()).filter(Boolean);
-  if (!url || !anon || !service || !allow.length) return {error:"Server configuration is incomplete.",status:503 as const};
+  const missing = [
+    !url ? "NEXT_PUBLIC_SUPABASE_URL" : "",
+    !anon ? "NEXT_PUBLIC_SUPABASE_ANON_KEY" : "",
+    !service ? "SUPABASE_SERVICE_ROLE_KEY" : "",
+    !allow.length ? "CATENO_ADMIN_EMAILS" : ""
+  ].filter(Boolean);
+  if (missing.length) return {error:`Server configuration is incomplete. Missing: ${missing.join(", ")}`,status:503 as const};
   const token = req.headers.get("authorization")?.replace(/^Bearer\\s+/i,"");
   if (!token) return {error:"Authentication required.",status:401 as const};
   const check = await fetch(`${url}/auth/v1/user`, {headers:{apikey:anon,Authorization:`Bearer ${token}`},cache:"no-store"});
