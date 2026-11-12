@@ -4,7 +4,7 @@ $("#nv").innerHTML=ids.map((id,i)=>`<a href="#${id}" ${h===id?'aria-current="pag
 $("#ft").innerHTML=`<div><a class="logo footer-logo" href="#home" aria-label="CATENO ADVISORY — Home"><img src="assets/cateno-logo.svg" alt="CATENO ADVISORY"></a><p>Cateno Advisory GmbH<br>${t.tag}</p></div><div>${ids.slice(0,6).map((id,i)=>`<a href="#${id}">${t.nav[i]}</a>`).join("")}</div><div><a href="#contact">${t.ct}</a><a href="#impressum">${t.imp}</a><a href="#privacy">${t.pv}</a><p>© 2026 Cateno Advisory GmbH. ${t.rights}</p></div>`;
 document.documentElement.lang=lang}
 function bindForm(){const f=$("#cf");if(!f)return;const t=T[lang],set=(id,m)=>{$("#"+id).textContent=m};
-const cp=$("#cp");cp.onclick=()=>{const d=()=>{cp.textContent=t.cpd;setTimeout(()=>cp.textContent=t.cpy,2000)};navigator.clipboard?navigator.clipboard.writeText(CONFIG.email).then(d,()=>{cp.textContent=t.cpy}):(()=>{cp.textContent=t.cpy})()};
+const cp=$("#cp");if(cp){cp.onclick=()=>{const d=()=>{cp.textContent=t.cpd;setTimeout(()=>cp.textContent=t.cpy,2000)};navigator.clipboard?navigator.clipboard.writeText(CONFIG.email).then(d,()=>{cp.textContent=t.cpy}):(()=>{cp.textContent=t.cpy})()}};
 const g=$("#g");g.addEventListener("input",()=>set("cn",g.value.length+" / 2000"));
 const chk=(inp,er,ok,msg)=>{$(inp).setAttribute("aria-invalid",!ok);set(er,ok?"":msg);return ok?0:1};
 ["#n","#m","#g"].forEach(s=>$(s).addEventListener("blur",()=>{if($(s).value)f.requestSubmit&&0}));
