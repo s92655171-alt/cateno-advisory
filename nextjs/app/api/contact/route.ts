@@ -14,7 +14,7 @@ export async function POST(req: Request) {
   const topic = clean(body.topic, 160);
   const message = clean(body.message, 4000);
   const consent = body.consent === true;
-  if (name.length < 2 || !/^[^\s@]+@[^\s@]+\\.[^\s@]{2,}$/.test(email) || message.length < 10 || !consent) {
+  if (name.length < 2 || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email) || message.length < 10 || !consent) {
    return NextResponse.json({ error: "Invalid enquiry details." }, { status: 400 });
   }
   // Cloudflare Worker secrets/variables are exposed through the OpenNext runtime context.
