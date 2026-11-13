@@ -3,6 +3,39 @@ import "./globals.css";
 
 const siteUrl = "https://cateno-advisory.com";
 
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "CATENO ADVISORY",
+  legalName: "Cateno Advisory GmbH",
+  url: siteUrl,
+  logo: `${siteUrl}/assets/cateno-logo.svg`,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Kolonnenstraße 8",
+    postalCode: "10827",
+    addressLocality: "Berlin",
+    addressCountry: "DE",
+  },
+  areaServed: [
+    {
+      "@type": "Country",
+      name: "Germany",
+    },
+    {
+      "@type": "Place",
+      name: "International markets",
+    },
+  ],
+  knowsAbout: [
+    "Business Consulting",
+    "International Business Consulting",
+    "IT Consulting",
+    "Software Development",
+    "Digital Transformation",
+  ],
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
@@ -41,7 +74,13 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+        {children}
+      </body>
     </html>
   );
 }
