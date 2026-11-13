@@ -14,7 +14,7 @@ export async function POST(req: Request) {
   const topic = clean(body.topic, 160);
   const message = clean(body.message, 4000);
   const consent = body.consent === true;
-  if (name.length < 2 || !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$/.test(email) || message.length < 10 || !consent) {
+  if (name.length < 2 || !/^[^\s@]+@[^\s@]+\\.[^\s@]{2,}$/.test(email) || message.length < 10 || !consent) {
    return NextResponse.json({ error: "Invalid enquiry details." }, { status: 400 });
   }
   // Cloudflare Worker secrets/variables are exposed through the OpenNext runtime context.
@@ -26,7 +26,7 @@ export async function POST(req: Request) {
    console.error("Contact delivery configuration is missing", { hasKey: !!key, hasTo: !!to, hasFrom: !!from });
    return NextResponse.json({ error: "Contact delivery is not configured." }, { status: 503 });
   }
-  const text = [`Name: ${name}`, `Email: ${email}`, `Company: ${company || "—"}`, `Topic: ${topic || "—"}`, "", message].join("\\n");
+  const text = [`Name: ${name}`, `Email: ${email}`, `Company: ${company || "—"}`, `Topic: ${topic || "—"}`, "", message].join("\n");
   const response = await fetch("https://api.resend.com/emails", {
    method: "POST",
    headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
