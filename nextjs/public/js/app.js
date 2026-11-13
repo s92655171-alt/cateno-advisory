@@ -18,11 +18,11 @@ const btn=f.querySelector("[type=submit]");btn.disabled=true;btn.textContent=t.s
 const body=`${$("#g").value}\n\n— ${$("#n").value}${$("#c").value?", "+$("#c").value:""}\n${$("#m").value}`,subj=`${$("#tp").value} — ${$("#n").value}`;
 if($("#hp").value){btn.disabled=false;return}
 const mailto=`mailto:${CONFIG.email}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
-const showFallback=()=>{const ok=$("#ok");ok.hidden=false;ok.innerHTML=`<h3>${lang==="de"?"Anfrage vorbereiten":"Prepare your enquiry"}</h3><p>${lang==="de"?"Der Serverversand ist noch nicht konfiguriert. Sie können Ihre Anfrage über Ihr E-Mail-Programm senden.":"Server delivery is not configured yet. You can send your enquiry using your email application."}</p><a class="btn" id="mt">${lang==="de"?"E-Mail öffnen":"Open email"}</a>`;$("#mt").href=mailto;btn.disabled=false;btn.textContent=t.f[5]};
+const showFallback=(detail="")=>{const ok=$("#ok");ok.hidden=false;ok.innerHTML=`<h3>${lang==="de"?"Anfrage vorbereiten":"Prepare your enquiry"}</h3><p>${lang==="de"?"Der Serverversand ist fehlgeschlagen.":"Server delivery failed."} ${detail?`<br><small>${detail.replace(/[&<>"]/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch]))}</small>`:""}</p><a class="btn" id="mt">${lang==="de"?"E-Mail öffnen":"Open email"}</a>`;$("#mt").href=mailto;btn.disabled=false;btn.textContent=t.f[5]};
 if(location.protocol==="file:"){showFallback();return}
 try{const res=await fetch("/api/contact",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({name:$("#n").value.trim(),email:$("#m").value.trim(),company:$("#c").value.trim(),topic:$("#tp").value,message:$("#g").value.trim(),website:$("#hp").value,consent:$("#k").checked})});
-if(!res.ok)throw new Error("send_failed");const ok=$("#ok");ok.hidden=false;ok.innerHTML=`<h3>${t.okh}</h3><p>${t.okp}</p>`;f.hidden=true;ok.scrollIntoView({block:"center"})
-}catch(err){showFallback()}})}
+if(!res.ok){let detail=`HTTP ${res.status}`;try{const data=await res.json();if(data&&data.error)detail+=`: ${data.error}`}catch(e){}throw new Error(detail)}const ok=$("#ok");ok.hidden=false;ok.innerHTML=`<h3>${t.okh}</h3><p>${t.okp}</p>`;f.hidden=true;ok.scrollIntoView({block:"center"})
+}catch(err){showFallback(err&&err.message?err.message:"Unknown error")}})}
 function render(){let h=location.hash.slice(1)||"home";if(!R.includes(h))h="home";
 $("#main").innerHTML=page(h);chrome();bindForm();$("#nv").classList.remove("open");$("#bg").setAttribute("aria-expanded","false");$("#bg").textContent="☰";
 document.title=(h==="home"?"Cateno Advisory":$("h1").textContent+" — Cateno Advisory");
