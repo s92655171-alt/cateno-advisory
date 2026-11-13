@@ -1,2 +1,2 @@
 // Site configuration.
-const CONFIG={email:"s92655171@gmail.com"};
+const CONFIG={email:"info@cateno-advisory.com"};
